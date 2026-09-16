@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import TransitionLink from "../components/TransitionLink";
 
 const designs = [
   {
@@ -9,10 +9,6 @@ const designs = [
     name: "Squares in Circles",
     path: "/squaresincircles",
   },
-  {
-    name: "Landing Page",
-    path: "/landing",
-  },
 ];
 
 function Navigation() {
@@ -21,9 +17,12 @@ function Navigation() {
       <div className="mx-auto max-w-3xl my-[20vh]">
 
         <section className="mb-8">
-          <h1 className="text-5xl font-bold mb-4">Design Lab</h1>
+          <h1 className="text-5xl font-bold mb-4">
+            Design Lab
+          </h1>
+
           <p className="text-lg text-black/60">
-            Click Through my collection of UI/UX designs and prototypes.
+            Click through my collection of UI/UX designs and prototypes.
           </p>
         </section>
 
@@ -31,11 +30,28 @@ function Navigation() {
 
         <section className="grid gap-8">
           {designs.map((design) => (
-            <Link key={design.path} to={design.path}>
-              <div className="bg-gray-100 p-6 rounded-2xl shadow-sm border-2 border-gray-300 hover:bg-gray-200 transition-colors">
-                <h2 className="text-2xl font-bold mb-2">{design.name}</h2>
+            <TransitionLink
+              key={design.path}
+              to={design.path}
+            >
+              <div
+                className="
+                  bg-gray-100
+                  p-6
+                  rounded-2xl
+                  shadow-sm
+                  border-2
+                  border-gray-300
+                  hover:bg-gray-200
+                  transition-colors
+                  cursor-pointer
+                "
+              >
+                <h2 className="text-2xl font-bold">
+                  {design.name}
+                </h2>
               </div>
-            </Link>
+            </TransitionLink>
           ))}
         </section>
 
