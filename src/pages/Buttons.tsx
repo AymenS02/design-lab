@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { MessagesSquareIcon } from "@hugeicons/core-free-icons";
 
 export default function Buttons() {
   
@@ -116,6 +118,73 @@ export default function Buttons() {
       opacity: 0,
       duration: 0.30,
       ease: "power2.out",
+    });
+  };
+
+  // ===== Button 4 =====
+
+  const button4Hidden = useRef(null);
+
+  const button4Enter = () => {
+    gsap.to(button4Hidden.current, {
+      y: 15,
+      rotate: 10,
+      duration: 0.30,
+      ease: "power2.out",
+    });
+  };
+
+  const button4Leave = () => {
+    gsap.to(button4Hidden.current, {
+      y: 0,
+      rotate: 0,
+      duration: 0.30,
+      ease: "power2.out",
+    });
+  };
+
+  // ===== Button 5 =====
+
+  const button5 = useRef(null);
+  const button5Hidden = useRef(null);
+  const button5HiddenText = useRef(null);
+
+  const button5Enter = () => {
+    gsap.to(button5Hidden.current, {
+    y: "-98%",
+    duration: 0.30,
+    ease: "power2.in",
+    });
+    gsap.to(button5HiddenText.current, {
+    y: "-98%",
+    duration: 0.30,
+    ease: "power2.in",
+    delay: 0.05,
+    });
+    gsap.to(button5.current, {
+      y: "-100%",
+      duration: 0.30,
+      opacity: 0,
+      ease: "power2.out",
+    });
+  };
+
+  const button5Leave = () => {
+    gsap.to(button5Hidden.current, {
+      y: "0%",
+      duration: 0.30,
+      ease: "power2.out",
+    })
+    gsap.to(button5HiddenText.current, {
+      y: "0%",
+      duration: 0.30,
+      ease: "power2.out",
+    });
+    gsap.to(button5.current, {
+      y: "0%",
+      duration: 0.30,
+      opacity: 1,
+      ease: "power2.in",
     });
   };
 
@@ -245,7 +314,37 @@ export default function Buttons() {
 
 
       {/* Button 4 */}
+      <div onMouseEnter={button4Enter} onMouseLeave={button4Leave} className="relative flex flex-col gap-8 rounded-4xl w-50 h-12.5 z-40 items-center justify-center">
+        <button
+          className="absolute z-10 rounded-4xl bg-red-400 border-2 border-black px-6 py-3 font-bold w-50 h-12.5"
+        >
+          Hover me 2
+        </button>
+        <button
+          ref={button4Hidden}
+          className="absolute z-5 rounded-4xl bg-gray-200 border-2 border-black px-6 py-3 font-bold w-50 h-12.5"
+        >
+          <div className="text-black text-sm text-nowrap font-bold px-6 py-3 flex items-center justify-center w-50 h-12.5 ml-7">
+            Hi There!
+          </div>
+        </button>
+      </div>
 
+
+      {/* Button 5 */}
+      <div onMouseEnter={button5Enter} onMouseLeave={button5Leave} className="relative flex flex-col gap-8 w-50 h-12.5 z-40 items-center justify-center overflow-hidden">
+        <h1 ref={button5}>Send A Message</h1>
+        <button ref={button5Hidden} className="absolute w-50 h-12.5 border-2 border-black top-[98%] bg-gray-50/50">
+        </button>
+        <h1 ref={button5HiddenText} className="absolute w-50 h-12.5 flex items-center justify-center top-[98%]">
+          <HugeiconsIcon
+            icon={MessagesSquareIcon}
+            size={20}
+            color="currentColor"
+            strokeWidth={1.5}
+          />
+        </h1>
+      </div>
     </div>
   );
 }
