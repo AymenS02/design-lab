@@ -104,7 +104,7 @@ export default function Buttons() {
   const button3Enter = () => {
     gsap.to(button3Hidden.current, {
       scale: 1,
-      duration: 0.50,
+      duration: 0.30,
       opacity: 1,
       ease: "power2.out",
     });
@@ -114,7 +114,7 @@ export default function Buttons() {
     gsap.to(button3Hidden.current, {
       scale: 1.25,
       opacity: 0,
-      duration: 0.20,
+      duration: 0.30,
       ease: "power2.out",
     });
   };
@@ -231,7 +231,7 @@ export default function Buttons() {
           </button>
           
           <button
-          ref={button3Hidden}
+            ref={button3Hidden}
             className="absolute z-10 opacity-0 scale-125 rounded-4xl bg-gray-200 border-2 border-black px-6 py-3 font-bold w-30 h-12.5"
           >
             
@@ -243,6 +243,8 @@ export default function Buttons() {
         </div>
       </div>
 
+
+      {/* Button 4 */}
 
     </div>
   );
