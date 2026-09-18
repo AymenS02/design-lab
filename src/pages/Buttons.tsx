@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { MessagesSquareIcon } from "@hugeicons/core-free-icons";
+import { HeartIcon, MessagesSquareIcon } from "@hugeicons/core-free-icons";
 
 export default function Buttons() {
   
@@ -188,6 +188,67 @@ export default function Buttons() {
     });
   };
 
+
+
+
+  // ===== Button 6 =====
+
+  const heart1 = useRef(null);
+  const heart2 = useRef(null);
+  const heart3 = useRef(null);
+  const heart4 = useRef(null);
+  const heart5 = useRef(null);
+
+  const button6Enter = () => {
+    gsap.to(heart1.current, {
+      scale: 1.3,
+      duration: 0.3,
+      ease: "back.out",
+    });
+
+    gsap.to(heart2.current, {
+      scale: 1.4,
+      duration: 0.35,
+      ease: "back.out",
+    });
+
+    gsap.to(heart3.current, {
+      scale: 1.5,
+      duration: 0.4,
+      ease: "back.out",
+    });
+
+    gsap.to(heart4.current, {
+      scale: 1.6,
+      duration: 0.45,
+      ease: "back.out",
+    });
+
+    gsap.to(heart5.current, {
+      scale: 1.7,
+      duration: 0.5,
+      ease: "back.out",
+    });
+  };
+
+
+  const button6Leave = () => {
+    gsap.to(
+      [
+        heart1.current,
+        heart2.current,
+        heart3.current,
+        heart4.current,
+        heart5.current,
+      ],
+      {
+        scale: 1.25,
+        duration: 0.4,
+        ease: "power2.out",
+      }
+    );
+  };
+
   return (
     <div className="flex flex-col items-center gap-20 p-20">
 
@@ -344,6 +405,44 @@ export default function Buttons() {
             strokeWidth={1.5}
           />
         </h1>
+      </div>
+
+      {/* Button 6 */}
+      <div onMouseEnter={button6Enter} onMouseLeave={button6Leave} className="relative flex flex-col gap-8 w-50 h-12.5 z-40 items-center justify-center mt-15 font-cedarville">
+        <h1 className="absolute text-sm flex items-center justify-center top-0 font-bold">
+          Hover
+        </h1>
+        <h1 className="absolute text-sm flex items-center justify-center top-4 font-bold">
+          for
+        </h1>
+        <h1 className="absolute text-sm flex items-center justify-center top-8 font-bold">
+          love
+        </h1>
+        <HugeiconsIcon ref={heart1} icon={HeartIcon} className="z-10 absolute scale-125 text-red-500"
+          size={125}
+          color="currentColor"
+          strokeWidth={1.5}
+        />
+        <HugeiconsIcon ref={heart2} icon={HeartIcon} className="z-6 absolute scale-125 text-red-400"
+          size={125}
+          color="currentColor"
+          strokeWidth={1.5}
+        />
+        <HugeiconsIcon ref={heart3} icon={HeartIcon} className="z-7 absolute scale-125 text-red-300"
+          size={125}
+          color="currentColor"
+          strokeWidth={1.5}
+        />
+        <HugeiconsIcon ref={heart4} icon={HeartIcon} className="z-8 absolute scale-125 text-red-200"
+          size={125}
+          color="currentColor"
+          strokeWidth={1.5}
+        />
+        <HugeiconsIcon ref={heart5} icon={HeartIcon} className="z-9 absolute scale-125 text-red-100"
+          size={125}
+          color="currentColor"
+          strokeWidth={1.5}
+        />
       </div>
     </div>
   );
