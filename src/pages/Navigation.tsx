@@ -8,6 +8,10 @@ const designs = [
   {
     name: "Squares in Circles",
     path: "/squaresincircles",
+  },  
+  {
+    name: "Buttons",
+    path: "/buttons",
   },
 ];
 

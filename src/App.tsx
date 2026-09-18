@@ -9,6 +9,7 @@ import PageTransition from "./components/PageTransition";
 import Navigation from "./pages/Navigation";
 import Cart from "./pages/Cart";
 import SquaresInCircles from "./pages/SquaresInCircles";
+import Buttons from "./pages/Buttons";
 
 
 function App() {
@@ -32,6 +33,11 @@ function App() {
           <Route
             path="/squaresincircles"
             element={<SquaresInCircles />}
+          />
+
+          <Route
+            path="/buttons"
+            element={<Buttons />}
           />
 
         </Routes>
