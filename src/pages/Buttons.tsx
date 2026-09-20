@@ -1,7 +1,29 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { HeartIcon, MessagesSquareIcon } from "@hugeicons/core-free-icons";
+
+type ShardMotion = {
+  x: number;
+  y: number;
+  rotate: number;
+  rotationY: number;
+  z: number;
+  clipPath: string;
+};
+
+// order: [L-top, L-mid, L-bottom, R-top, R-mid, R-bottom]
+const BUTTON8_SHARDS: ShardMotion[] = [
+  { x: -16, y: -10, rotate: -14, rotationY: -18, z: 30, clipPath: "polygon(0 0, 100% 0%, 75% 100%, 0 100%)" },
+  { x: -20, y: 0,   rotate: -6,  rotationY: -10, z: 20, clipPath: "polygon(0 0, 75% 0%, 90% 100%, 0 100%)" },
+  { x: -15, y: 10,  rotate: -18, rotationY: -22, z: 25, clipPath: "polygon(0 0, 90% 0%, 75% 100%, 0 100%)" },
+  { x: 16,  y: -9,  rotate: 14,  rotationY: 18,  z: 30, clipPath: "polygon(25% 0, 100% 0%, 100% 100%, 0 100%)" },
+  { x: 21,  y: 1,   rotate: 7,   rotationY: 10,  z: 20, clipPath: "polygon(0 0, 100% 0%, 100% 100%, 15% 100%)" },
+  { x: 14,  y: 11,  rotate: 17,  rotationY: 22,  z: 25, clipPath: "polygon(15% 0, 100% 0%, 100% 100%, 0 100%)" },
+];
+
+// stagger order: mid rows crack first, then top/bottom (center-out)
+const BUTTON8_STAGGER = [0.02, 0, 0.045, 0.02, 0, 0.045];
 
 export default function Buttons() {
   
@@ -305,25 +327,75 @@ const buttonClick = () => {
   });
 };
 
-  // ===== Button 8 =====
-  
-  const button8 = useRef(null);
+  // ===== Button 8 (glass shard break/reform) =====
 
-  const button8Enter = () => {
-    gsap.to(button8.current, {
-      scale: 1.1,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  }
+  const button8ShardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const button8GlowRef = useRef<HTMLDivElement>(null);
+  const button8LabelBreakRef = useRef<HTMLSpanElement>(null);
+  const button8LabelReformRef = useRef<HTMLSpanElement>(null);
+  const button8WrapperRef = useRef<HTMLDivElement>(null);
+  const button8TlRef = useRef<gsap.core.Timeline | null>(null);
 
-  const button8Leave = () => {
-    gsap.to(button8.current, {
-      scale: 1,
-      duration: 0.3,
-      ease: "power2.out",
+  const [button8Broken, setButton8Broken] = useState(false);
+
+  useLayoutEffect(() => {
+    gsap.set(button8LabelReformRef.current, { autoAlpha: 0, y: 4 });
+
+    const tl = gsap.timeline({ paused: true });
+
+    // impact flash
+    tl.to(button8GlowRef.current, { opacity: 0.9, scale: 1.35, duration: 0.12, ease: "power2.out" }, 0)
+      .to(button8GlowRef.current, { opacity: 0, duration: 0.45, ease: "power2.out" }, 0.12);
+
+    // shards fly apart, center-out stagger, each with unique vector
+    BUTTON8_SHARDS.forEach((s, i) => {
+      tl.to(
+        button8ShardRefs.current[i],
+        {
+          x: s.x,
+          y: s.y,
+          rotate: s.rotate,
+          rotationY: s.rotationY,
+          z: s.z,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        BUTTON8_STAGGER[i]
+      );
     });
-  }
+
+    // label swap
+    tl.to(button8LabelBreakRef.current, { autoAlpha: 0, y: -4, duration: 0.2 }, 0.05)
+      .to(button8LabelReformRef.current, { autoAlpha: 1, y: 0, duration: 0.2 }, 0.15);
+
+    button8TlRef.current = tl;
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  const button8Break = () => {
+    const next = !button8Broken;
+    setButton8Broken(next);
+
+    if (next) {
+      button8TlRef.current?.play();
+    } else {
+      button8TlRef.current?.reverse();
+      // magnetic "click" settle once the shards land back home
+      gsap.fromTo(
+        button8WrapperRef.current,
+        { scale: 1 },
+        { scale: 1.05, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, delay: 0.45 }
+      );
+      gsap.fromTo(
+        button8GlowRef.current,
+        { opacity: 0 },
+        { opacity: 0.6, duration: 0.1, delay: 0.55, yoyo: true, repeat: 1, ease: "power1.inOut" }
+      );
+    }
+  };
+
 
 
   return (
@@ -526,11 +598,55 @@ const buttonClick = () => {
         <button onMouseEnter={button7Enter} onMouseLeave={button7Leave} ref={button7Shadow} className="z-8 absolute mt-3 w-50 h-12.5 bg-gray-400 rounded-lg"></button>
       </div>
 
-      {/* Button 8 */}
-      <div className="relative flex items-center justify-center w-200 h-100 bg-yellow-500 text-white">
-        <button ref={button8} onMouseEnter={button8Enter} onMouseLeave={button8Leave} className="z-10 absolute w-50 h-12.5 bg-blue-500 duration-100 transition-color rounded-lg">Hover for Animation</button>
+      {/* Button 8 — glass shard break/reform */}
+      <div className="relative flex items-center justify-center text-white" style={{ perspective: "600px" }}>
+        <div
+          ref={button8WrapperRef}
+          onClick={button8Break}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && button8Break()}
+          className="relative w-24 h-9 flex items-center justify-center cursor-pointer select-none"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {/* impact glow */}
+          <div
+            ref={button8GlowRef}
+            className="pointer-events-none absolute inset-0 rounded-full bg-cyan-300/70 blur-xl opacity-0"
+            style={{ transform: "scale(0.6)" }}
+          />
+
+          {/* left half */}
+          <div>
+            {BUTTON8_SHARDS.slice(0, 3).map((s, i) => (
+              <div
+                key={`l-${i}`}
+                ref={(el) => { button8ShardRefs.current[i] = el; }}
+                className="w-12 h-3 bg-blue-400 drop-shadow-[0_2px_3px_rgba(0,0,0,0.45)]"
+                style={{ clipPath: s.clipPath, willChange: "transform" }}
+              />
+            ))}
+          </div>
+
+          {/* right half */}
+          <div>
+            {BUTTON8_SHARDS.slice(3, 6).map((s, i) => (
+              <div
+                key={`r-${i}`}
+                ref={(el) => { button8ShardRefs.current[i + 3] = el; }}
+                className="w-12 -ml-3 h-3 bg-blue-400 drop-shadow-[0_2px_3px_rgba(0,0,0,0.45)]"
+                style={{ clipPath: s.clipPath, willChange: "transform" }}
+              />
+            ))}
+          </div>
+
+          {/* label, crossfaded */}
+          <div className="absolute inset-0 flex items-center justify-center z-20 text-xs font-medium tracking-wide">
+            <span ref={button8LabelBreakRef} className="absolute">break</span>
+            <span ref={button8LabelReformRef} className="absolute">reform</span>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-

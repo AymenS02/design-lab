@@ -17,30 +17,41 @@ function App() {
     <BrowserRouter>
 
       <PageTransition>
+      <div className="relative min-h-screen overflow-hidden">
 
-        <Routes>
+        {/* Math Grid Background */}
+        <div
+          className="
+            fixed
+            inset-0
+            -z-10
+            bg-grid
+          "
+        />
+          <Routes>
 
-          <Route
-            path="/"
-            element={<Navigation />}
-          />
+            <Route
+              path="/"
+              element={<Navigation />}
+            />
 
-          <Route
-            path="/cart"
-            element={<Cart />}
-          />
+            <Route
+              path="/cart"
+              element={<Cart />}
+            />
 
-          <Route
-            path="/squaresincircles"
-            element={<SquaresInCircles />}
-          />
+            <Route
+              path="/squaresincircles"
+              element={<SquaresInCircles />}
+            />
 
-          <Route
-            path="/buttons"
-            element={<Buttons />}
-          />
+            <Route
+              path="/buttons"
+              element={<Buttons />}
+            />
 
-        </Routes>
+          </Routes>
+      </div>
 
       </PageTransition>
 

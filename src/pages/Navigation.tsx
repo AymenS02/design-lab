@@ -17,7 +17,7 @@ const designs = [
 
 function Navigation() {
   return (
-    <main className="min-h-screen bg-white text-black/80 px-8 py-16 font-bitter">
+    <main className="min-h-screen text-black/80 px-8 py-16 font-bitter">
       <div className="mx-auto max-w-3xl my-[20vh]">
 
         <section className="mb-8">

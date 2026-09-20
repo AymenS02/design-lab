@@ -304,7 +304,7 @@ const GsapSandbox = () => {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-screen overflow-hidden bg-neutral-950 [perspective:2000px]"
+      className="relative h-screen w-screen overflow-hidden [perspective:2000px]"
     >
       {/* =====================================
           BUTTON
