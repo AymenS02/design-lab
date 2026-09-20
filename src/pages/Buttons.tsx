@@ -253,7 +253,6 @@ export default function Buttons() {
   
   const button7 = useRef(null);
   const button7Shadow = useRef(null);
-  const button7side = useRef(null);
 
   const button7Enter = () => {
     gsap.to(button7.current, {
@@ -305,7 +304,28 @@ const buttonClick = () => {
     repeat: 1,
   });
 };
+
+  // ===== Button 8 =====
   
+  const button8 = useRef(null);
+
+  const button8Enter = () => {
+    gsap.to(button8.current, {
+      scale: 1.1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }
+
+  const button8Leave = () => {
+    gsap.to(button8.current, {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }
+
+
   return (
     <div className="flex flex-col items-center gap-20 p-20">
 
@@ -499,11 +519,16 @@ const buttonClick = () => {
         />
       </div>
 
-      {/* Button 7 https://getcssscan.com/css-buttons-examples button 82*/}
+      {/* Button 7 */}
       <div className="relative flex items-center justify-center w-200 h-100 text-white">
         <button onClick={buttonClick} onMouseEnter={button7Enter} onMouseLeave={button7Leave} ref={button7} className="z-10 absolute w-50 h-12.5 bg-red-500 duration-100 transition-color rounded-lg">Hello</button>
         <button onMouseEnter={button7Enter} onMouseLeave={button7Leave} className="z-9 absolute mt-2 w-50 h-12.5 bg-[#780802] rounded-lg"></button>
         <button onMouseEnter={button7Enter} onMouseLeave={button7Leave} ref={button7Shadow} className="z-8 absolute mt-3 w-50 h-12.5 bg-gray-400 rounded-lg"></button>
+      </div>
+
+      {/* Button 8 */}
+      <div className="relative flex items-center justify-center w-200 h-100 bg-yellow-500 text-white">
+        <button ref={button8} onMouseEnter={button8Enter} onMouseLeave={button8Leave} className="z-10 absolute w-50 h-12.5 bg-blue-500 duration-100 transition-color rounded-lg">Hover for Animation</button>
       </div>
     </div>
   );
