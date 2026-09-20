@@ -13,6 +13,10 @@ const designs = [
     name: "Buttons",
     path: "/buttons",
   },
+  {
+    name: "FAQ Page",
+    path: "/faq",
+  }
 ];
 
 function Navigation() {

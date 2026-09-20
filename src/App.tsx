@@ -10,12 +10,16 @@ import Navigation from "./pages/Navigation";
 import Cart from "./pages/Cart";
 import SquaresInCircles from "./pages/SquaresInCircles";
 import Buttons from "./pages/Buttons";
+import FAQ from "./pages/FAQ";
+import SmoothScroll from "./components/SmoothScroll";
 
 
 function App() {
   return (
     <BrowserRouter>
 
+      <SmoothScroll />
+      
       <PageTransition>
       <div className="relative min-h-screen overflow-hidden">
 
@@ -48,6 +52,11 @@ function App() {
             <Route
               path="/buttons"
               element={<Buttons />}
+            />
+
+            <Route
+              path="/faq"
+              element={<FAQ />}
             />
 
           </Routes>
