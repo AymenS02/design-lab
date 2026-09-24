@@ -16,7 +16,15 @@ const designs = [
   {
     name: "FAQ Page",
     path: "/faq",
-  }
+  },
+  {
+    name: "Sandbox",
+    path: "/sandbox",
+  },
+  {
+    name: "Yacht Hero",
+    path: "/yachthero",
+  },
 ];
 
 function Navigation() {

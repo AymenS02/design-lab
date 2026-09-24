@@ -12,6 +12,9 @@ import SquaresInCircles from "./pages/SquaresInCircles";
 import Buttons from "./pages/Buttons";
 import FAQ from "./pages/FAQ";
 import SmoothScroll from "./components/SmoothScroll";
+import Sandbox from "./pages/Sandbox";
+import YachtHero from "./pages/YachtHero";
+
 
 
 function App() {
@@ -57,6 +60,16 @@ function App() {
             <Route
               path="/faq"
               element={<FAQ />}
+            />
+
+            <Route
+              path="/sandbox"
+              element={<Sandbox />}
+            />
+
+            <Route
+              path="/yachthero"
+              element={<YachtHero />}
             />
 
           </Routes>
