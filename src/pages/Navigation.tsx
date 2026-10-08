@@ -25,6 +25,14 @@ const designs = [
     name: "Yacht Hero",
     path: "/yachthero",
   },
+  {
+    name: "Matter",
+    path: "/matter",
+  },
+  {
+    name: "Logo Animation",
+    path: "/logoanimation",
+  },
 ];
 
 function Navigation() {

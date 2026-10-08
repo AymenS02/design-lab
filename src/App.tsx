@@ -14,6 +14,8 @@ import FAQ from "./pages/FAQ";
 import SmoothScroll from "./components/SmoothScroll";
 import Sandbox from "./pages/Sandbox";
 import YachtHero from "./pages/YachtHero";
+import Matter from "./pages/Matter";
+import LogoAnimation from "./pages/LogoAnimation";
 
 
 
@@ -70,6 +72,16 @@ function App() {
             <Route
               path="/yachthero"
               element={<YachtHero />}
+            />
+
+            <Route
+              path="/matter"
+              element={<Matter />}
+            />
+
+            <Route
+              path="/logoanimation"
+              element={<LogoAnimation />}
             />
 
           </Routes>
