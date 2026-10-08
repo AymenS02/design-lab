@@ -33,6 +33,10 @@ const designs = [
     name: "Logo Animation",
     path: "/logoanimation",
   },
+  {
+    name: "Slick Navbar",
+    path: "/slicknavbar",
+  },
 ];
 
 function Navigation() {

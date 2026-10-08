@@ -16,6 +16,7 @@ import Sandbox from "./pages/Sandbox";
 import YachtHero from "./pages/YachtHero";
 import Matter from "./pages/Matter";
 import LogoAnimation from "./pages/LogoAnimation";
+import SlickNavbar from "./pages/SlickNavbar";
 
 
 
@@ -82,6 +83,11 @@ function App() {
             <Route
               path="/logoanimation"
               element={<LogoAnimation />}
+            />
+
+            <Route
+              path="/slicknavbar"
+              element={<SlickNavbar />}
             />
 
           </Routes>
